@@ -1,23 +1,17 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Todo List</h1>
-
-    <!-- Button to trigger Add Todo Modal -->
     <div class="d-flex justify-content-center align-items-center">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTodoModal">Add Todo</button>
     </div>    
-
-    <!-- Todo Cards Grid -->
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-4" id="todoList">
         <% todos.forEach(todo => { %>
             <div class="col">
-                <!-- Card with adjusted size -->
                 <div class="card shadow-sm hover-card" style="max-width: 300px;">
                     <div class="card-body">
                         <h5 style="text-align: center;" class="card-title">Todo</h5>
                         <p style="text-align: center;" class="card-text <%= todo.completed ? 'text-decoration-line-through' : '' %>">
                             <%= todo.task %>
                         </p>
-                        <!-- Buttons aligned horizontally -->
                         <div class="d-flex justify-content-center align-items-center">
                             <button class="btn btn-sm btn-success me-1 editBtn" data-id="<%= todo.id %>">Edit</button>
                             <button class="btn btn-sm btn-danger ms-1 deleteBtn" data-id="<%= todo.id %>">Delete</button>
@@ -28,17 +22,14 @@
         <% }); %>
     </div>
 
-    <!-- Add Todo Modal -->
 <div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="addTodoModalLabel" aria-hidden="true">
     <div class="modal-dialog d-flex justify-content-center align-items-center" style="max-width: 500px;">
         <div class="modal-content">
-            <!-- Center title in modal header -->
             <div class="modal-header w-100">
                 <h5 class="modal-title w-100 text-center" id="addTodoModalLabel">Add New Todo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex justify-content-center align-items-center">
-                <!-- Center the form and input elements -->
                 <form id="addTodoForm" class="d-flex flex-column justify-content-center align-items-center w-100">
                     <div class="form-group mb-3 w-100">
                         <label for="newTask" class="text-center w-100">Task</label>
@@ -51,7 +42,6 @@
     </div>
 </div>
 
-<!-- Edit Todo Modal -->
 <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog d-flex justify-content-center align-items-center" style="max-width: 500px;">
         <div class="modal-content">
@@ -60,7 +50,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex justify-content-center align-items-center">
-                <!-- Center the form and input elements -->
                 <form id="editTodoForm" class="d-flex flex-column justify-content-center align-items-center w-100">
                     <div class="form-group mb-3 w-100">
                         <label for="editTask" class="text-center w-100">Task</label>
@@ -77,18 +66,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Add new todo
         $('#addTodoForm').on('submit', function (e) {
             e.preventDefault();
             const task = $('#newTask').val().trim();
             if (task) {
                 $.ajax({
-                    url: '/tododb', // Use /tododb route
+                    url: '/tododb',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ task: task }),
                     success: function (newTodo) {
-                        location.reload(); // Reload to show the new todo
+                        location.reload();
                     },
                     error: function (error) {
                         console.error("Error adding task:", error.responseText);
@@ -97,14 +85,13 @@
             }
         });
 
-        // Delete a todo
         $('.deleteBtn').on('click', function () {
             const id = $(this).data('id');
             $.ajax({
-                url: '/tododb/' + id, // Use /tododb route
+                url: '/tododb/' + id,
                 type: 'DELETE',
                 success: function () {
-                    location.reload(); // Reload to show updated list
+                    location.reload();
                 },
                 error: function (error) {
                     console.error("Error deleting task:", error.responseText);
@@ -112,7 +99,6 @@
             });
         });
 
-        // Show edit modal with the current task
         let editId;
         $('.editBtn').on('click', function () {
             editId = $(this).data('id');
@@ -121,18 +107,17 @@
             $('#editModal').modal('show');
         });
 
-        // Update todo on form submission
         $('#editTodoForm').on('submit', function (e) {
             e.preventDefault();
             const task = $('#editTask').val().trim();
             if (task) {
                 $.ajax({
-                    url: '/tododb/' + editId, // Use /tododb route
+                    url: '/tododb/' + editId,
                     type: 'PUT',
                     data: JSON.stringify({ task: task, completed: false }),
                     contentType: 'application/json',
                     success: function () {
-                        location.reload(); // Reload to show the updated todo
+                        location.reload();
                     },
                     error: function (error) {
                         console.error("Error updating task:", error.responseText);
@@ -147,35 +132,29 @@
     <p>&copy; 2024 Nadhira's. All rights reserved.</p>
 </footer>
 
-<!-- Styling -->
 <style>
-    /* Hover effect for cards */
     .hover-card:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease-in-out;
     }
 
-    /* Strikethrough completed tasks */
     .text-decoration-line-through {
         text-decoration: line-through;
     }
 
-    /* Footer styling */
     footer {
-        background-color: #6985AC; /* Background color of footer */
+        background-color: #6985AC;
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 100%; /* Ensure the footer spans full width */
+        width: 100%;
         text-align: center;
     }
 
-    /* Ensure body content doesn't overlap footer */
     body {
-        padding-bottom: 60px; /* Add enough padding to ensure content doesn't overlap the footer */
+        padding-bottom: 60px;
     }
 
-    /* Resize card size */
     .card {
         max-width: 300px;
         margin: 0 auto;
