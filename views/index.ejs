@@ -4,16 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero {
+            background-color: #6985AC;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+        }
+
+        .movie-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .movie-card img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            width: 350px;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .movie-card .card-body {
+            padding: 15px;
+        }
+
+        .movie-card h5 {
+            font-size: 1.5rem;
+            color: #343a40;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome to the Home Page!</h1>
-        <p>This is the home page of our application.</p>
-        <a href="/contact" class="btn btn-primary">Go to Contact Page</a>
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Welcome to Nadhira's Page!</h1>
+            <p>Here are some series recommendations to fill your free time!</p>
+        </div>
+
+        <!-- Movie Recommendations -->
+        <div class="row" id="movie-list">
+            <!-- Movie cards will be dynamically inserted here -->
+        </div>
     </div>
+
+    <script>
+        // Data film favorit Nadhira
+        const movies = [
+            { title: "The 100", image: "https://i.pinimg.com/474x/5b/34/f7/5b34f707f5479bd70557d8214aaa31c6.jpg", description: "Set 97 years after a nuclear war destroyed civilization, when a spaceship housing humanity's lone survivors sends 100 juvenile delinquents back to Earth, hoping to repopulate the planet." },
+            { title: "Outer Banks", image: "https://i.pinimg.com/474x/7d/01/1e/7d011e17d194eb97c7ec4c3f794133c1.jpg", description: "On an island of haves and have-nots, teen John B enlists his three best friends to hunt for a legendary treasure linked to his father's disappearance." },
+            { title: "The Hunger Games", image: "https://i.pinimg.com/474x/72/7b/54/727b549ff1a623aa1dcd0cc506e7192e.jpg", description: "A televised competition in which two teenagers from each of the twelve Districts of Panem are chosen at random to fight to the death." },
+            { title: "Dark", image: "https://i.pinimg.com/474x/02/f6/9c/02f69ce21ff6686ff567aecbc119ce60.jpg", description: "A family saga with a supernatural twist, set in a German town where the disappearance of two young children exposes the relationships among four families." },
+            { title: "Stranger Things", image: "https://i.pinimg.com/474x/87/b7/36/87b7360a15926ff8f7a7acc610a76fec.jpg", description: "A group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries." },
+            { title: "1899", image: "https://i.pinimg.com/474x/54/8e/a6/548ea665d0df0ccd1e904d45c2817878.jpg", description: "Multinational immigrants traveling from the old continent to the new encounter a nightmarish riddle aboard a second ship adrift on the open sea." }
+        ];
+
+        // Menampilkan film pada halaman
+        const movieListContainer = document.getElementById('movie-list');
+        
+        movies.forEach(movie => {
+            const movieCard = `
+                <div class="col-md-4 mb-4">
+                    <div class="card movie-card">
+                        <img src="${movie.image}" alt="${movie.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${movie.title}</h5>
+                            <p class="card-text">${movie.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            movieListContainer.innerHTML += movieCard;
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

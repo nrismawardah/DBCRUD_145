@@ -1,26 +1,86 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Logo dan Brand -->
+    <a class="navbar-brand d-flex align-items-center text-white fw-bold" href="#">
+      <img src="https://i.pinimg.com/736x/ef/43/4b/ef434b6af69d701871d2be7496bdb85f.jpg" alt="Logo" 
+        style="width: 50px; height: 40px; object-fit: cover; margin-right: 10px;">
+    </a>
+    <!-- Toggler -->
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Menu Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link text-white" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact</a>
+          <a class="nav-link text-white" href="/contact">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/todo-view">Todo</a>
+          <a class="nav-link text-white" href="/todo-view">Todo</a>
         </li>
         <li class="nav-item">
-            <form action="/logout" method="POST">
-              <button class="btn-link nav-link" type="submit">Logout</button>
-            </form>
+          <form action="/logout" method="POST" class="d-inline m-0">
+            <button class="btn btn-logout nav-link text-white border-0 p-2" type="submit">Logout</button>
+          </form>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<style>
+  /* Background navbar */
+  .bg-custom {
+    background-color: #6985AC; /* Warna background navbar */
+  }
+
+  /* Styling navbar brand (logo dan teks) */
+  .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+  }
+
+  /* Hover efek untuk link */
+  .nav-link {
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #ffffff !important; /* Warna hover putih */
+    text-decoration: underline;
+  }
+
+  /* Tombol Logout dengan background kotak */
+  .btn-logout.nav-link {
+    background-color: #5e779b !important; /* Tambahkan !important untuk memastikan override */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex; /* Pastikan tombol Logout sejajar */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-logout.nav-link:hover {
+    background-color: #4d6281 !important; /* Warna lebih gelap saat hover */
+    color: white;
+  }
+
+  /* Hilangkan margin dan padding bawaan form */
+  form {
+    margin: 0;
+    padding: 0;
+  }
+</style>

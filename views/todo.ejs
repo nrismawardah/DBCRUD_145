@@ -1,52 +1,78 @@
 <div class="container mt-5">
-    <h1 class="text-center">Todo List</h1>
+    <h1 class="text-center mb-4">Todo List</h1>
 
-    <!-- Form to Add New Todo -->
-    <form id="addTodoForm" class="my-4">
-        <div class="input-group">
-            <input type="text" id="newTask" class="form-control" placeholder="Add a new task..." required>
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary">Add Task</button>
-            </div>
-        </div>
-    </form>
+    <!-- Button to trigger Add Todo Modal -->
+    <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTodoModal">Add Todo</button>
+    </div>    
 
-    <!-- List of Todos -->
-    <ul id="todoList" class="list-group">
+    <!-- Todo Cards Grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4" id="todoList">
         <% todos.forEach(todo => { %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="<%= todo.completed ? 'completed' : '' %>">
-                    <%= todo.task %>
-                </span>
-                <div>
-                    <button class="btn btn-sm btn-success mr-2 editBtn" data-id="<%= todo.id %>">Edit</button>
-                    <button class="btn btn-sm btn-danger deleteBtn" data-id="<%= todo.id %>">Delete</button>
-                </div>
-            </li>
-        <% }); %>
-    </ul>
-
-    <!-- Edit Todo Modal -->
-    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Todo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editTodoForm">
-                        <div class="form-group">
-                            <label for="editTask">Task</label>
-                            <input type="text" id="editTask" class="form-control" required>
+            <div class="col">
+                <!-- Card with adjusted size -->
+                <div class="card shadow-sm hover-card" style="max-width: 300px;">
+                    <div class="card-body">
+                        <h5 style="text-align: center;" class="card-title">Todo</h5>
+                        <p style="text-align: center;" class="card-text <%= todo.completed ? 'text-decoration-line-through' : '' %>">
+                            <%= todo.task %>
+                        </p>
+                        <!-- Buttons aligned horizontally -->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button class="btn btn-sm btn-success me-1 editBtn" data-id="<%= todo.id %>">Edit</button>
+                            <button class="btn btn-sm btn-danger ms-1 deleteBtn" data-id="<%= todo.id %>">Delete</button>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-                    </form>
+                    </div>
                 </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <!-- Add Todo Modal -->
+<div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center align-items-center" style="max-width: 500px;">
+        <div class="modal-content">
+            <!-- Center title in modal header -->
+            <div class="modal-header w-100">
+                <h5 class="modal-title w-100 text-center" id="addTodoModalLabel">Add New Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <!-- Center the form and input elements -->
+                <form id="addTodoForm" class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <div class="form-group mb-3 w-100">
+                        <label for="newTask" class="text-center w-100">Task</label>
+                        <input type="text" id="newTask" class="form-control w-100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 mx-auto">Add Task</button> <!-- Center the button -->
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Edit Todo Modal -->
+<div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center align-items-center" style="max-width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header w-100">
+                <h5 class="modal-title w-100 text-center" id="editModalLabel">Edit Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <!-- Center the form and input elements -->
+                <form id="editTodoForm" class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <div class="form-group mb-3 w-100">
+                        <label for="editTask" class="text-center w-100">Task</label>
+                        <input type="text" id="editTask" class="form-control w-100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 mx-auto">Save Changes</button> <!-- Center the button -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -90,7 +116,7 @@
         let editId;
         $('.editBtn').on('click', function () {
             editId = $(this).data('id');
-            const currentTask = $(this).closest('li').find('span').text();
+            const currentTask = $(this).closest('.card').find('.card-text').text();
             $('#editTask').val(currentTask);
             $('#editModal').modal('show');
         });
@@ -116,3 +142,42 @@
         });
     });
 </script>
+
+<footer class="bg-footer text-white text-center py-3">
+    <p>&copy; 2024 Nadhira's. All rights reserved.</p>
+</footer>
+
+<!-- Styling -->
+<style>
+    /* Hover effect for cards */
+    .hover-card:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Strikethrough completed tasks */
+    .text-decoration-line-through {
+        text-decoration: line-through;
+    }
+
+    /* Footer styling */
+    footer {
+        background-color: #6985AC; /* Background color of footer */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%; /* Ensure the footer spans full width */
+        text-align: center;
+    }
+
+    /* Ensure body content doesn't overlap footer */
+    body {
+        padding-bottom: 60px; /* Add enough padding to ensure content doesn't overlap the footer */
+    }
+
+    /* Resize card size */
+    .card {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+</style>
